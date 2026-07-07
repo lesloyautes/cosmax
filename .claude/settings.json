@@ -17,7 +17,20 @@
       "Bash(git -C /c/private/cosmax status)",
       "Bash(pkill -f \"venv2\")",
       "Bash(git -C /c/private/cosmax log --oneline -3)",
-      "Bash(git -C /c/private/cosmax remote -v)"
+      "Bash(git -C /c/private/cosmax remote -v)",
+      "Bash(git -C /c/private/cosmax diff --stat)",
+      "Bash(git -C /c/private/cosmax diff -- app.py)",
+      "Bash(git -C /c/private/cosmax ls-files)",
+      "Bash(git -C /c/private/cosmax log -p -1 800a886 -- app.py)",
+      "Bash(git -C /c/private/cosmax log -1 --format=\"%H %ai %s\" 800a886)",
+      "Bash(git -C /c/private/cosmax log --format=\"%H %ai %s\")",
+      "Bash(git -C /c/private/cosmax fetch origin)",
+      "Bash(git -C /c/private/cosmax rev-parse HEAD)",
+      "Bash(git -C /c/private/cosmax rev-parse origin/main)",
+      "Bash(git -C /c/private/cosmax log --oneline origin/main -3)",
+      "Bash(python -c \"import app; print\\(app.__file__\\)\")",
+      "Bash(python3 -)",
+      "Bash(python -)"
     ]
   }
 }
