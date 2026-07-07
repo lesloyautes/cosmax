@@ -1,0 +1,1165 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>규제나침반 | 중국 화장품 규제 1차 스크리닝</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.css" />
+<style>
+  :root{
+    --bg:#0E1A2B;
+    --surface:#16263B;
+    --surface-2:#1C3049;
+    --ivory:#F3EFE4;
+    --muted:#96A3B8;
+    --gold:#E8C24A;
+    --gold-bright:#FFDD6B;
+    --gold-soft:rgba(232,194,74,0.16);
+    --gold-glow:rgba(232,194,74,0.55);
+    --green:#4C9A6A;
+    --green-soft:rgba(76,154,106,0.14);
+    --amber:#E0A83E;
+    --amber-soft:rgba(224,168,62,0.14);
+    --red:#C1503F;
+    --red-soft:rgba(193,80,63,0.14);
+    --border:rgba(201,162,39,0.18);
+    --radius:14px;
+  }
+  *{box-sizing:border-box;}
+  html,body{margin:0;padding:0;}
+  body{
+    background:
+      radial-gradient(ellipse 900px 500px at 85% -10%, rgba(201,162,39,0.10), transparent 60%),
+      var(--bg);
+    color:var(--ivory);
+    font-family:'Pretendard', -apple-system, sans-serif;
+    line-height:1.6;
+    -webkit-font-smoothing:antialiased;
+  }
+  .display{font-family:'Space Grotesk','Pretendard',sans-serif;}
+  a{color:inherit;}
+
+  /* ---------- Header ---------- */
+  header{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    padding:22px 28px;
+    max-width:1180px;
+    margin:0 auto;
+  }
+  .logo{
+    display:flex;
+    align-items:center;
+    gap:10px;
+    font-family:'Space Grotesk',sans-serif;
+    font-weight:600;
+    font-size:11px;
+    letter-spacing:0.01em;
+  }
+  .logo-mark{
+    width:20px;height:20px;
+    border-radius:50%;
+    border:1.2px solid var(--gold);
+    display:flex;align-items:center;justify-content:center;
+    position:relative;
+    flex-shrink:0;
+  }
+  .logo-mark::after{
+    content:'';
+    position:absolute;
+    width:1.5px;height:8px;
+    background:var(--gold-bright);
+    border-radius:2px;
+    top:2px;
+  }
+  .logo-sub{font-size:8px;color:var(--muted);font-weight:400;letter-spacing:0.02em;}
+  .header-right{
+    font-size:9px;color:var(--muted);
+    display:flex; align-items:center; gap:6px;
+  }
+  .header-right svg{width:12px;height:12px;stroke:var(--muted);}
+
+  /* ---------- Hero ---------- */
+  .hero{
+    max-width:1180px;
+    margin:0 auto;
+    padding:40px 28px 60px;
+    display:grid;
+    grid-template-columns:1.1fr 0.9fr;
+    gap:40px;
+    align-items:center;
+  }
+  .eyebrow{
+    display:inline-flex;
+    align-items:center;
+    gap:8px;
+    font-size:12.5px;
+    color:var(--gold-bright);
+    background:var(--gold-soft);
+    border:1px solid var(--gold);
+    padding:6px 12px;
+    border-radius:999px;
+    margin-bottom:20px;
+    letter-spacing:0.02em;
+  }
+  .hero h1{
+    font-family:'Space Grotesk',sans-serif;
+    font-size:44px;
+    line-height:1.22;
+    font-weight:600;
+    margin:0 0 18px;
+    letter-spacing:-0.01em;
+  }
+  .hero h1 span{color:var(--gold);}
+  .hero p{
+    font-size:16px;
+    color:var(--muted);
+    max-width:480px;
+    margin:0 0 30px;
+  }
+  .hero-ctas{display:flex; gap:12px; flex-wrap:wrap;}
+  .btn{
+    font-family:'Pretendard',sans-serif;
+    font-size:15px;
+    font-weight:600;
+    padding:14px 24px;
+    border-radius:10px;
+    border:none;
+    cursor:pointer;
+    transition:transform .15s ease, box-shadow .15s ease, background .15s ease;
+  }
+  .btn:focus-visible{outline:2px solid var(--gold); outline-offset:3px;}
+  .btn-primary{
+    background:linear-gradient(135deg, var(--gold-bright), var(--gold));
+    color:#191204;
+  }
+  .btn-primary:hover{transform:translateY(-1px); box-shadow:0 8px 24px rgba(232,194,74,0.30);}
+  .btn-ghost{
+    background:transparent;
+    color:var(--ivory);
+    border:1px solid var(--border);
+  }
+  .btn-ghost:hover{background:var(--surface-2);}
+
+  /* ---------- Compass visual ---------- */
+  .compass-wrap{
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    position:relative;
+  }
+  .compass{width:100%; max-width:266px; height:auto; position:relative; z-index:1;}
+  .needle{
+    transform-origin:170px 170px;
+    animation: settle 2.4s cubic-bezier(.2,.9,.25,1) forwards;
+  }
+  @keyframes settle{
+    0%{transform:rotate(0deg);}
+    55%{transform:rotate(300deg);}
+    75%{transform:rotate(260deg);}
+    100%{transform:rotate(285deg);}
+  }
+  .tick{stroke:rgba(243,239,228,0.35);}
+  .zone-label{font-family:'Pretendard',sans-serif; font-size:12px; font-weight:600; fill:var(--ivory); letter-spacing:0.02em;}
+
+  /* ---------- Texture banner ---------- */
+  .texture-banner{
+    max-width:1180px;
+    margin:0 auto 40px;
+    padding:0 28px;
+  }
+  .texture-banner-inner{
+    position:relative;
+    border-radius:24px;
+    overflow:hidden;
+    height:220px;
+  }
+  .texture-banner-inner img{
+    width:100%; height:100%; object-fit:cover;
+    display:block;
+    filter:saturate(0.85);
+  }
+  .texture-banner-overlay{
+    position:absolute; inset:0;
+    background:linear-gradient(100deg, rgba(14,26,43,0.92) 20%, rgba(14,26,43,0.55) 55%, rgba(14,26,43,0.15) 100%);
+    display:flex;
+    flex-direction:column;
+    justify-content:center;
+    padding:0 40px;
+  }
+  .texture-banner-overlay .eyebrow-mini{
+    font-size:11.5px;
+    color:var(--gold-bright);
+    letter-spacing:0.06em;
+    margin-bottom:8px;
+    font-weight:600;
+  }
+  .texture-banner-overlay p{
+    font-family:'Space Grotesk','Pretendard',sans-serif;
+    font-size:20px;
+    font-weight:600;
+    color:var(--ivory);
+    max-width:420px;
+    margin:0;
+    line-height:1.4;
+  }
+  @media (max-width:600px){
+    .texture-banner-inner{height:170px;}
+    .texture-banner-overlay{padding:0 22px;}
+    .texture-banner-overlay p{font-size:16px;}
+  }
+
+  /* ---------- Disclaimer banner ---------- */
+  .disclaimer{
+    max-width:1180px;
+    margin:0 auto 8px;
+    padding:0 28px;
+  }
+  .disclaimer-inner{
+    display:flex;
+    gap:14px;
+    align-items:flex-start;
+    background:linear-gradient(0deg, rgba(224,168,62,0.08), rgba(224,168,62,0.08)), var(--surface);
+    border:1px solid rgba(224,168,62,0.35);
+    border-radius:var(--radius);
+    padding:16px 18px;
+  }
+  .disclaimer-icon{
+    flex-shrink:0;
+    width:22px;height:22px;
+    color:var(--amber);
+    margin-top:1px;
+  }
+  .disclaimer-text{font-size:13.5px; color:var(--muted);}
+  .disclaimer-text strong{color:var(--ivory); font-weight:600;}
+
+  /* ---------- Section wrapper ---------- */
+  .section{
+    max-width:1180px;
+    margin:0 auto;
+    padding:52px 28px;
+  }
+  .section-head{margin-bottom:26px;}
+  .section-eyebrow{
+    font-size:12px;
+    color:var(--gold);
+    text-transform:uppercase;
+    letter-spacing:0.08em;
+    margin-bottom:8px;
+    font-weight:600;
+  }
+  .section-head h2{
+    font-family:'Space Grotesk',sans-serif;
+    font-size:26px;
+    font-weight:600;
+    margin:0 0 6px;
+  }
+  .section-head p{color:var(--muted); font-size:14.5px; margin:0;}
+
+  /* ---------- Form card ---------- */
+  .form-card{
+    background:var(--surface);
+    border:1px solid var(--border);
+    border-radius:20px;
+    padding:32px;
+  }
+  .form-grid{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:22px 24px;
+  }
+  .field{display:flex; flex-direction:column; gap:8px;}
+  .field.full{grid-column:1 / -1;}
+  label{font-size:13.5px; font-weight:600; color:var(--ivory);}
+  label .hint{font-weight:400; color:var(--muted); font-size:12px; margin-left:6px;}
+  select, input[type=text]{
+    background:var(--surface-2);
+    border:1px solid var(--border);
+    color:var(--ivory);
+    padding:12px 14px;
+    border-radius:10px;
+    font-size:14.5px;
+    font-family:'Pretendard',sans-serif;
+    width:100%;
+  }
+  select:focus, input[type=text]:focus{outline:2px solid var(--gold); outline-offset:1px;}
+  .radio-row{display:flex; gap:10px; flex-wrap:wrap;}
+  .radio-chip{
+    position:relative;
+  }
+  .radio-chip input{position:absolute; opacity:0; inset:0; cursor:pointer;}
+  .radio-chip span{
+    display:inline-flex;
+    padding:10px 16px;
+    border-radius:999px;
+    border:1px solid var(--border);
+    font-size:13.5px;
+    color:var(--muted);
+    cursor:pointer;
+    transition:all .15s ease;
+  }
+  .radio-chip input:checked + span{
+    background:var(--gold-soft);
+    border-color:var(--gold);
+    color:var(--gold-bright);
+    font-weight:600;
+  }
+  .tag-input-box{
+    background:var(--surface-2);
+    border:1px solid var(--border);
+    border-radius:10px;
+    padding:10px;
+    display:flex;
+    flex-wrap:wrap;
+    gap:8px;
+    min-height:52px;
+  }
+  .tag{
+    display:inline-flex;
+    align-items:center;
+    gap:6px;
+    background:var(--gold-soft);
+    color:var(--gold);
+    border:1px solid var(--border);
+    padding:6px 10px;
+    border-radius:999px;
+    font-size:13px;
+    font-weight:500;
+  }
+  .tag button{
+    background:none;
+    border:none;
+    color:var(--gold);
+    cursor:pointer;
+    font-size:14px;
+    line-height:1;
+    padding:0;
+  }
+  .tag-input-box input{
+    flex:1;
+    min-width:120px;
+    background:transparent;
+    border:none;
+    padding:6px 4px;
+    color:var(--ivory);
+    font-size:14px;
+  }
+  .tag-input-box input:focus{outline:none;}
+  .field-note{font-size:12px; color:var(--muted);}
+  .file-upload-box{display:flex; align-items:center; gap:12px; background:var(--surface-2); border:1px solid var(--border); border-radius:10px; padding:10px 14px;}
+  .file-upload-btn{background:var(--gold-soft); color:var(--gold-bright); border:1px solid var(--border); padding:8px 14px; border-radius:8px; font-size:13px; font-weight:600; cursor:pointer; white-space:nowrap; transition:background .15s ease;}
+  .file-upload-btn:hover{background:var(--gold); color:#191204;}
+  .file-upload-box input[type=file]{display:none;}
+  .file-upload-name{font-size:13px; color:var(--muted); overflow:hidden; text-overflow:ellipsis; white-space:nowrap;}
+  .form-footer{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap:16px;
+    margin-top:28px;
+    flex-wrap:wrap;
+  }
+  .form-status{font-size:13px; color:var(--muted); min-height:18px;}
+  .form-status.show{color:var(--green);}
+
+  /* ---------- History ---------- */
+  .history-list{
+    display:grid;
+    grid-template-columns:repeat(3, 1fr);
+    gap:16px;
+  }
+  .history-card{
+    background:var(--surface);
+    border:1px solid var(--border);
+    border-radius:var(--radius);
+    padding:18px;
+    cursor:pointer;
+    transition:border-color .15s ease, transform .15s ease;
+    text-align:left;
+    color:var(--ivory);
+    font-family:'Pretendard',sans-serif;
+  }
+  .history-card:hover{border-color:var(--gold); transform:translateY(-2px);}
+  .history-card:focus-visible{outline:2px solid var(--gold); outline-offset:2px;}
+  .history-top{
+    display:flex; justify-content:space-between; align-items:center;
+    margin-bottom:10px;
+  }
+  .history-cat{font-size:12px; color:var(--muted);}
+  .history-date{font-size:11.5px; color:var(--muted);}
+  .history-title{font-size:15px; font-weight:600; margin-bottom:8px;}
+  .history-tags{display:flex; gap:6px; flex-wrap:wrap;}
+  .history-tag{
+    font-size:11.5px;
+    background:var(--surface-2);
+    border-radius:6px;
+    padding:3px 8px;
+    color:var(--muted);
+  }
+  .risk-dot{
+    width:8px;height:8px;border-radius:50%;display:inline-block;margin-right:6px;
+  }
+
+  footer{
+    max-width:1180px;
+    margin:0 auto;
+    padding:32px 28px 48px;
+    color:var(--muted);
+    font-size:12.5px;
+    border-top:1px solid var(--border);
+    margin-top:20px;
+  }
+
+  /* ---------- Result screen ---------- */
+  .summary-card{
+    background:linear-gradient(135deg, var(--surface), var(--surface-2));
+    border:1px solid var(--border);
+    border-radius:20px;
+    padding:32px;
+    display:grid;
+    grid-template-columns:0.85fr 1.15fr;
+    gap:32px;
+    align-items:center;
+    margin-bottom:36px;
+  }
+  .summary-left{display:flex; flex-direction:column; align-items:center; gap:10px;}
+  .summary-compass{width:170px; height:170px;}
+  .risk-badge{display:inline-flex; align-items:center; gap:8px; font-weight:600; font-size:13.5px; padding:8px 16px; border-radius:999px;}
+  .risk-badge .dot{width:8px;height:8px;border-radius:50%;}
+  .risk-badge.red{background:var(--red-soft); border:1px solid rgba(193,80,63,0.4); color:#F0958A;}
+  .risk-badge.red .dot{background:var(--red);}
+  .risk-badge.amber{background:var(--amber-soft); border:1px solid rgba(224,168,62,0.4); color:#EFC57C;}
+  .risk-badge.amber .dot{background:var(--amber);}
+  .risk-badge.green{background:var(--green-soft); border:1px solid rgba(76,154,106,0.4); color:#8FCBA5;}
+  .risk-badge.green .dot{background:var(--green);}
+  .summary-right .product-name{font-family:'Space Grotesk',sans-serif; font-size:24px; font-weight:600; margin:0 0 8px;}
+  .summary-meta{display:flex; gap:8px; flex-wrap:wrap; margin-bottom:16px;}
+  .meta-chip{font-size:12.5px; background:var(--surface-2); border:1px solid var(--border); color:var(--muted); padding:5px 12px; border-radius:999px;}
+  .summary-stats{display:grid; grid-template-columns:repeat(3,1fr); gap:12px;}
+  .stat-box{background:rgba(0,0,0,0.15); border-radius:10px; padding:12px 14px;}
+  .stat-num{font-family:'Space Grotesk',sans-serif; font-size:20px; font-weight:700;}
+  .stat-num.red{color:var(--red);} .stat-num.amber{color:var(--amber);} .stat-num.green{color:var(--green);}
+  .stat-label{font-size:11.5px; color:var(--muted); margin-top:2px;}
+
+  .result-section{margin-bottom:36px;}
+  .result-section-head{margin-bottom:16px;}
+  .result-section-head h3{font-family:'Space Grotesk',sans-serif; font-size:19px; font-weight:600; margin:4px 0 0;}
+  .result-note{font-size:14.5px; color:var(--muted); margin:0 0 16px;}
+
+  .table-wrap{overflow-x:auto; border:1px solid var(--border); border-radius:var(--radius); background:var(--surface);}
+  .table-wrap table{width:100%; border-collapse:collapse; min-width:920px;}
+  .table-wrap th{text-align:left; font-size:12px; color:var(--muted); text-transform:uppercase; letter-spacing:0.04em; font-weight:600; padding:14px 16px; border-bottom:1px solid var(--border); white-space:nowrap;}
+  .table-wrap td{padding:14px 16px; font-size:13.5px; border-bottom:1px solid var(--border); vertical-align:top;}
+  .table-wrap tr:last-child td{border-bottom:none;}
+  .table-wrap tr.risk-red{background:var(--red-soft);}
+  .table-wrap tr.risk-amber{background:var(--amber-soft);}
+  .ing-name{font-weight:600; white-space:nowrap;}
+  .signal{display:inline-flex; align-items:center; gap:6px; font-weight:600; white-space:nowrap;}
+  .signal .dot{width:9px;height:9px;border-radius:50%;flex-shrink:0;}
+  .signal.red{color:#F0958A;} .signal.red .dot{background:var(--red);}
+  .signal.amber{color:#EFC57C;} .signal.amber .dot{background:var(--amber);}
+  .signal.green{color:#8FCBA5;} .signal.green .dot{background:var(--green);}
+  .reg-tag{font-size:12px; color:var(--muted); white-space:nowrap;}
+  .issue-text{color:var(--muted); font-size:12.5px;}
+  tr.toggle-row{cursor:pointer;}
+  tr.toggle-row td{text-align:center; background:var(--surface-2); color:var(--gold-bright); font-weight:600; font-size:13px;}
+  tr.toggle-row:hover td{background:var(--gold-soft);}
+
+  .validity-list{display:flex; flex-direction:column; gap:12px;}
+  .validity-card{display:flex; gap:14px; align-items:flex-start; border-radius:var(--radius); padding:16px 18px; border:1px solid var(--border);}
+  .validity-card.warn{background:var(--amber-soft); border-color:rgba(224,168,62,0.4);}
+  .validity-card.ok{background:var(--green-soft); border-color:rgba(76,154,106,0.35);}
+  .validity-card.check{background:var(--surface);}
+  .validity-icon{font-size:18px; line-height:1; margin-top:1px;}
+  .validity-title{font-weight:600; font-size:14.5px; margin-bottom:4px;}
+  .validity-body{font-size:13.5px; color:var(--muted);}
+  .validity-body strong{color:var(--ivory);}
+
+  .checklist{display:flex; flex-direction:column; gap:10px;}
+  .check-item{display:flex; gap:12px; align-items:flex-start; background:var(--surface); border:1px solid var(--border); border-radius:10px; padding:14px 16px;}
+  .check-item input{margin-top:3px; width:16px; height:16px; accent-color:var(--gold); flex-shrink:0; cursor:pointer;}
+  .check-item label{font-size:13.5px; cursor:pointer;}
+  .check-item label .rtag{display:inline-block; font-size:11px; color:var(--gold); background:var(--gold-soft); border-radius:6px; padding:2px 7px; margin-right:8px; font-weight:600;}
+
+  .ref-note{font-size:12.5px; color:var(--muted); margin-bottom:14px;}
+  .ref-list{display:flex; flex-direction:column; gap:10px;}
+  .ref-card{background:var(--surface); border:1px solid var(--border); border-radius:10px; padding:14px 16px;}
+  .ref-title{font-size:13.5px; font-weight:600; margin-bottom:4px;}
+  .ref-title a{color:var(--gold-bright);}
+  .ref-meta{font-size:12px; color:var(--muted);}
+
+  /* ---------- Responsive ---------- */
+  @media (max-width:600px){
+    .hero{grid-template-columns:1fr; padding-top:20px;}
+    .hero h1{font-size:27px;}
+    .hero p{font-size:14px;}
+    .compass-wrap{order:-1; max-width:154px; margin:0 auto;}
+    .form-grid{grid-template-columns:1fr;}
+    .history-list{grid-template-columns:1fr;}
+    .section{padding:36px 20px;}
+    header{padding:18px 20px;}
+    .disclaimer{padding:0 20px;}
+    .summary-card{grid-template-columns:1fr;}
+    .summary-stats{grid-template-columns:1fr 1fr;}
+  }
+  @media (min-width:601px) and (max-width:900px){
+    .hero{grid-template-columns:1fr 0.85fr; gap:24px;}
+    .hero h1{font-size:34px;}
+    .compass{max-width:190px;}
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="logo">
+    <span class="logo-mark" aria-hidden="true"></span>
+    <div>
+      규제나침반
+      <div class="logo-sub">China Compliance Compass</div>
+    </div>
+  </div>
+  <div class="header-right">
+    <svg viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round"><path d="M12 8v4l3 2"/><circle cx="12" cy="12" r="9"/></svg>
+    최근 업데이트: NMPA 공고 반영중
+  </div>
+</header>
+
+<section class="hero">
+  <div>
+    <div class="eyebrow">중국 화장품 규제 · 1차 스크리닝</div>
+    <h1 class="display">놓치기 쉬운 규제,<br>먼저 <span>확인</span>하고 진행하세요.</h1>
+    <p>카테고리와 원료만 입력하면 원료 규제, 등록·신고 절차, 최신 공고까지 확인이 필요한 항목을 정리해드려요. 중국 시장이 처음이어도 무엇부터 확인해야 하는지 바로 알 수 있어요.</p>
+    <div class="hero-ctas">
+      <button class="btn btn-primary" onclick="document.getElementById('screening-form').scrollIntoView({behavior:'smooth'})">스크리닝 시작하기</button>
+      <button class="btn btn-ghost" onclick="document.getElementById('history').scrollIntoView({behavior:'smooth'})">최근 이력 보기</button>
+    </div>
+  </div>
+  <div class="compass-wrap">
+    <svg class="compass" viewBox="0 0 340 340" role="img" aria-label="위험도를 안내하는 나침반 그래픽">
+      <circle cx="170" cy="170" r="150" fill="none" stroke="rgba(243,239,228,0.10)" stroke-width="1"/>
+      <path d="M170 170 L170 22 A148 148 0 0 1 297 100 Z" fill="rgba(90,196,135,0.38)"/>
+      <path d="M170 170 L297 100 A148 148 0 0 1 297 240 Z" fill="rgba(240,180,70,0.42)"/>
+      <path d="M170 170 L297 240 A148 148 0 0 1 170 318 Z" fill="rgba(224,90,72,0.42)"/>
+      <path d="M170 170 L170 22 A148 148 0 0 1 297 100 A148 148 0 0 1 297 240 A148 148 0 0 1 170 318 A148 148 0 0 1 43 240 A148 148 0 0 1 43 100 A148 148 0 0 1 170 22 Z" fill="none" stroke="rgba(15,26,43,0.75)" stroke-width="2.5"/>
+      <line x1="170" y1="170" x2="170" y2="22" stroke="rgba(15,26,43,0.6)" stroke-width="2.5"/>
+      <line x1="170" y1="170" x2="297" y2="100" stroke="rgba(15,26,43,0.6)" stroke-width="2.5"/>
+      <line x1="170" y1="170" x2="297" y2="240" stroke="rgba(15,26,43,0.6)" stroke-width="2.5"/>
+      <line x1="170" y1="170" x2="170" y2="318" stroke="rgba(15,26,43,0.6)" stroke-width="2.5"/>
+      <circle cx="170" cy="170" r="150" fill="none" stroke="#E8C24A" stroke-width="2.5" opacity="0.9"/>
+      <g class="tick" stroke="rgba(243,239,228,0.5)" stroke-width="2">
+        <line x1="170" y1="18" x2="170" y2="34"/>
+        <line x1="170" y1="306" x2="170" y2="322"/>
+        <line x1="18" y1="170" x2="34" y2="170"/>
+        <line x1="306" y1="170" x2="322" y2="170"/>
+      </g>
+      <text x="170" y="48" text-anchor="middle" class="zone-label">안전</text>
+      <text x="290" y="173" text-anchor="middle" class="zone-label">확인필요</text>
+      <text x="170" y="302" text-anchor="middle" class="zone-label">주의</text>
+      <g class="needle">
+        <polygon points="170,52 181,170 170,183 159,170" fill="#FFDD6B"/>
+        <polygon points="170,288 181,170 170,157 159,170" fill="rgba(255,221,107,0.5)"/>
+      </g>
+      <circle cx="170" cy="170" r="12" fill="#0E1A2B" stroke="#FFDD6B" stroke-width="3"/>
+    </svg>
+  </div>
+</section>
+
+<div class="texture-banner">
+  <div class="texture-banner-inner">
+    <img src="3153f43349e726dcbb1326232ad5b6cd.jpg" alt="화장품 텍스처 클로즈업 이미지">
+    <div class="texture-banner-overlay">
+      <div class="eyebrow-mini">규제나침반</div>
+      <p>매끄러운 텍스처 뒤에는,<br>확인해야 할 규제가 있습니다.</p>
+    </div>
+  </div>
+</div>
+
+<div class="disclaimer">
+  <div class="disclaimer-inner">
+    <svg class="disclaimer-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 9v4M12 17h.01M10.3 3.9 1.9 18a2 2 0 0 0 1.7 3h16.8a2 2 0 0 0 1.7-3L13.7 3.9a2 2 0 0 0-3.4 0Z"/></svg>
+    <div class="disclaimer-text">
+      <strong>이 결과는 1차 스크리닝용입니다.</strong> 규정은 자주 바뀌고 신뢰할 수 있는 최신 확인이 중요해요. 최종 등록·신고 전에는 반드시 NMPA 공식 채널 또는 사내 규제 전문 부서를 통해 확인하세요.
+    </div>
+  </div>
+</div>
+
+<section class="section" id="screening-form">
+  <div class="section-head">
+    <div class="section-eyebrow">Step 1</div>
+    <h2 class="display">상품 기획안 입력</h2>
+    <p>카테고리와 원료만 입력해도 충분해요. 정보가 많을수록 체크리스트가 더 구체적으로 나와요.</p>
+  </div>
+
+  <form class="form-card" onsubmit="return handleSubmit(event)">
+    <div class="form-grid">
+      <div class="field full">
+        <label for="product-name">제품명 <span class="hint">선택, 비워두면 카테고리명으로 표시돼요</span></label>
+        <input type="text" id="product-name" placeholder="예: 화이트 글로우 브라이트닝 앰플">
+      </div>
+
+      <div class="field full">
+        <label for="plan-file">상품 기획안 파일 <span class="hint">선택 · PDF·이미지·문서 업로드 가능</span></label>
+        <div class="file-upload-box">
+          <label class="file-upload-btn" for="plan-file">파일 선택</label>
+          <input type="file" id="plan-file" accept=".pdf,.doc,.docx,.ppt,.pptx,.png,.jpg,.jpeg" onchange="handleFileSelect(this)">
+          <span class="file-upload-name" id="plan-file-name">선택된 파일 없음</span>
+        </div>
+        <div class="field-note">업로드한 파일은 이 데모에서는 저장되지 않고 파일명만 표시돼요. 실제 서비스에서는 기획안 내용을 분석해 카테고리·원료를 자동으로 채워주는 데 쓸 수 있어요.</div>
+      </div>
+
+      <div class="field">
+        <label for="category">제품 카테고리</label>
+        <select id="category">
+          <option value="">선택해주세요</option>
+          <option>스킨케어 – 앰플/세럼</option>
+          <option>스킨케어 – 크림/로션</option>
+          <option>메이크업</option>
+          <option>헤어</option>
+          <option>자외선차단</option>
+          <option>기능성 전반</option>
+        </select>
+      </div>
+
+      <div class="field">
+        <label>제품 유형 <span class="hint">확실하지 않으면 미정 선택</span></label>
+        <div class="radio-row">
+          <label class="radio-chip"><input type="radio" name="type" value="일반"><span>일반화장품</span></label>
+          <label class="radio-chip"><input type="radio" name="type" value="특수"><span>특수화장품</span></label>
+          <label class="radio-chip"><input type="radio" name="type" value="미정" checked><span>미정 / 확인 필요</span></label>
+        </div>
+      </div>
+
+      <div class="field full">
+        <label for="ingredient-input">핵심 원료 리스트 <span class="hint">Enter로 추가</span></label>
+        <div class="tag-input-box" id="tag-box">
+          <input type="text" id="ingredient-input" placeholder="예: 나이아신아마이드">
+        </div>
+        <div class="field-note">전성분표를 그대로 붙여넣어도 인식돼요.</div>
+      </div>
+
+      <div class="field">
+        <label>타겟 사용자</label>
+        <div class="radio-row">
+          <label class="radio-chip"><input type="radio" name="target" value="성인" checked><span>성인용</span></label>
+          <label class="radio-chip"><input type="radio" name="target" value="영유아"><span>영유아용</span></label>
+        </div>
+      </div>
+
+      <div class="field">
+        <label for="claim">주요 효능 클레임 (선택)</label>
+        <input type="text" id="claim" placeholder="예: 미백, 진정, 안티에이징">
+      </div>
+    </div>
+
+    <div class="form-footer">
+      <span class="form-status" id="form-status"></span>
+      <button type="submit" class="btn btn-primary">1차 스크리닝 시작</button>
+    </div>
+  </form>
+</section>
+
+<section class="section" id="result" style="display:none;">
+  <div class="section-head">
+    <div class="section-eyebrow">Step 2</div>
+    <h2 class="display">1차 스크리닝 결과</h2>
+    <p>원료 신호등, 카테고리 유효성, 체크리스트, 참고자료까지 한 번에 확인하세요.</p>
+  </div>
+  <div id="result-body"></div>
+</section>
+
+<section class="section" id="history">
+  <div class="section-head">
+    <div class="section-eyebrow">Step 0</div>
+    <h2 class="display">최근 스크리닝 이력</h2>
+    <p>카드를 누르면 해당 조건을 입력폼에 바로 불러와요.</p>
+  </div>
+
+  <div class="history-list">
+    <button class="history-card" onclick="loadHistory('스킨케어 – 앰플/세럼','일반',['정제수','글리세린','부틸렌글라이콜','나이아신아마이드','바쿠치올','니코틴아마이드모노뉴클레오타이드(NMN)','콜라겐','캐모마일추출물','판테놀','하이드록시에틸셀룰로오스','카보머','트로메타민','다이소듐이디티에이','페녹시에탄올','향료'],'민감진정·장벽케어')">
+      <div class="history-top">
+        <span class="history-cat">스킨케어 · 앰플</span>
+        <span class="history-date">방금 추가</span>
+      </div>
+      <div class="history-title"><span class="risk-dot" style="background:var(--amber)"></span>센서티브 배리어 리페어 앰플</div>
+      <div class="history-tags">
+        <span class="history-tag">진정 클레임</span>
+        <span class="history-tag">원료 15종</span>
+      </div>
+    </button>
+
+    <button class="history-card" onclick="loadHistory('스킨케어 – 앰플/세럼','특수',['나이아신아마이드','알파-알부틴','트라넥사믹애씨드','아데노신','글리세린','부틸렌글라이콜','하이드록시에틸셀룰로오스','카보머','트로메타민','다이소듐이디티에이','페녹시에탄올','에틸헥실글리세린','판테놀','정제수','향료'],'미백')">
+      <div class="history-top">
+        <span class="history-cat">스킨케어 · 앰플</span>
+        <span class="history-date">1일 전</span>
+      </div>
+      <div class="history-title"><span class="risk-dot" style="background:var(--red)"></span>화이트 글로우 브라이트닝 앰플</div>
+      <div class="history-tags">
+        <span class="history-tag">미백 클레임</span>
+        <span class="history-tag">원료 15종</span>
+      </div>
+    </button>
+
+    <button class="history-card" onclick="loadHistory('스킨케어 – 크림/로션','일반',['병풀추출물','판테놀','세테아릴알코올','스쿠알란','세라마이드엔피','다이메티콘','카프릴릭/카프릭트라이글리세라이드','글리세릴스테아레이트','폴리소르베이트60','카보머','다이소듐이디티에이','페녹시에탄올','정제수','글리세린','향료'],'진정')">
+      <div class="history-top">
+        <span class="history-cat">스킨케어 · 크림</span>
+        <span class="history-date">3일 전</span>
+      </div>
+      <div class="history-title"><span class="risk-dot" style="background:var(--green)"></span>시카 수딩 리페어 크림</div>
+      <div class="history-tags">
+        <span class="history-tag">진정 클레임</span>
+        <span class="history-tag">원료 15종</span>
+      </div>
+    </button>
+
+    <button class="history-card" onclick="loadHistory('헤어','특수',['판테놀','비오틴','나이아신아마이드','멘톨','살리실릭애씨드','다이프로필렌글라이콜','폴리쿼터늄-10','클림바졸','하이드롤라이즈드케라틴','알란토인','페녹시에탄올','에틸헥실글리세린','정제수','에탄올','향료'],'탈모완화·육모')">
+      <div class="history-top">
+        <span class="history-cat">헤어 · 스칼프</span>
+        <span class="history-date">5일 전</span>
+      </div>
+      <div class="history-title"><span class="risk-dot" style="background:var(--red)"></span>헤어그로우 부스팅 스칼프 토닉</div>
+      <div class="history-tags">
+        <span class="history-tag">육모 클레임</span>
+        <span class="history-tag">원료 15종</span>
+      </div>
+    </button>
+
+    <button class="history-card" onclick="loadHistory('자외선차단','특수',['에칠헥실메톡시신나메이트','징크옥사이드','티타늄디옥사이드','사이클로펜타실록산','다이메티콘','C12-15알킬벤조에이트','글리세린','나이아신아마이드','폴리메틸실세스퀴옥산','알루미늄하이드록사이드','트라이에톡시카프릴릴실란','다이소듐이디티에이','페녹시에탄올','정제수','향료'],'자외선차단')">
+      <div class="history-top">
+        <span class="history-cat">자외선차단</span>
+        <span class="history-date">1주 전</span>
+      </div>
+      <div class="history-title"><span class="risk-dot" style="background:var(--amber)"></span>데일리 선 프로텍트 에센스 SPF50+</div>
+      <div class="history-tags">
+        <span class="history-tag">자차 클레임</span>
+        <span class="history-tag">원료 15종</span>
+      </div>
+    </button>
+
+    <button class="history-card" onclick="loadHistory('메이크업','특수',['티타늄디옥사이드','나이아신아마이드','다이머다이리놀레익애씨드','사이클로펜타실록산','다이메티콘','부틸렌글라이콜','마이카','아이언옥사이드','실리카','폴리메틸메타크릴레이트','트라이에톡시카프릴릴실란','페녹시에탄올','다이소듐이디티에이','정제수','향료'],'자외선차단·커버력')">
+      <div class="history-top">
+        <span class="history-cat">메이크업 · 쿠션</span>
+        <span class="history-date">9일 전</span>
+      </div>
+      <div class="history-title"><span class="risk-dot" style="background:var(--amber)"></span>글로우 핏 커버 쿠션 SPF35</div>
+      <div class="history-tags">
+        <span class="history-tag">자차 클레임</span>
+        <span class="history-tag">원료 15종</span>
+      </div>
+    </button>
+
+    <button class="history-card" onclick="loadHistory('기능성 전반','일반',['코카미도프로필베타인','소듐코코일글루타메이트','판테놀','락틱애씨드','글리세린','다이프로필렌글라이콜','코코-글루코사이드','하이드록시에틸셀룰로오스','소듐클로라이드','시트릭애씨드','다이소듐이디티에이','페녹시에탄올','에틸헥실글리세린','정제수','향료'],'저자극·약산성')">
+      <div class="history-top">
+        <span class="history-cat">바디케어</span>
+        <span class="history-date">11일 전</span>
+      </div>
+      <div class="history-title"><span class="risk-dot" style="background:var(--green)"></span>마일드 pH 밸런스 바디워시</div>
+      <div class="history-tags">
+        <span class="history-tag">저자극 클레임</span>
+        <span class="history-tag">원료 15종</span>
+      </div>
+    </button>
+
+    <button class="history-card" onclick="loadHistory('기능성 전반','특수',['알루미늄클로로하이드레이트','다이프로필렌글라이콜','사이클로펜타실록산','다이메티콘','세틸에틸헥사노에이트','스테아릴알코올','글리세린','판테놀','알란토인','트라이클로산','다이소듐이디티에이','페녹시에탄올','부틸렌글라이콜','정제수','향료'],'체취제거(탈취)')">
+      <div class="history-top">
+        <span class="history-cat">데오드란트</span>
+        <span class="history-date">2주 전</span>
+      </div>
+      <div class="history-title"><span class="risk-dot" style="background:var(--red)"></span>프레시 24H 롤온 데오드란트</div>
+      <div class="history-tags">
+        <span class="history-tag">탈취 클레임</span>
+        <span class="history-tag">원료 15종</span>
+      </div>
+    </button>
+
+    <button class="history-card" onclick="loadHistory('스킨케어 – 크림/로션','일반',['시어버터','스쿠알란','마카다미아씨오일','토코페롤','카프릴릭/카프릭트라이글리세라이드','폴리부텐','카나우바왁스','칸데릴라왁스','호호바씨오일','비즈왁스','하이드로제네이티드폴리데센','토코페릴아세테이트','다이메티콘','라우릴라이신','향료'],'보습·각질케어')">
+      <div class="history-top">
+        <span class="history-cat">립케어</span>
+        <span class="history-date">16일 전</span>
+      </div>
+      <div class="history-title"><span class="risk-dot" style="background:var(--green)"></span>허니 글로우 립 슬리핑 밤</div>
+      <div class="history-tags">
+        <span class="history-tag">보습 클레임</span>
+        <span class="history-tag">원료 15종</span>
+      </div>
+    </button>
+
+    <button class="history-card" onclick="loadHistory('기능성 전반','미정',['살리실릭애씨드','티트리잎오일','판테놀','코카미도프로필베타인','소듐라우로일사코시네이트','글리세린','소듐클로라이드','멘틸락테이트','알란토인','다이소듐이디티에이','시트릭애씨드','페녹시에탄올','에틸헥실글리세린','정제수','향료'],'여드름케어')">
+      <div class="history-top">
+        <span class="history-cat">클렌징</span>
+        <span class="history-date">19일 전</span>
+      </div>
+      <div class="history-title"><span class="risk-dot" style="background:var(--amber)"></span>클리어 업 살리실릭 클렌징 폼</div>
+      <div class="history-tags">
+        <span class="history-tag">여드름 클레임</span>
+        <span class="history-tag">원료 15종</span>
+      </div>
+    </button>
+
+    <button class="history-card" onclick="loadHistory('헤어','특수',['파라페닐렌다이아민(PPD)','레조시놀','암모니아','세틸알코올','스테아릴알코올','소듐라우릴설페이트','소듐설파이트','에리쓰르빅애씨드','프로필렌글라이콜','올레익애씨드','다이소듐이디티에이','암모늄하이드록사이드','아이소프로필알코올','정제수','향료'],'새치커버·염색지속력')">
+      <div class="history-top">
+        <span class="history-cat">헤어 · 염색</span>
+        <span class="history-date">24일 전</span>
+      </div>
+      <div class="history-title"><span class="risk-dot" style="background:var(--red)"></span>퍼펙트 커버 그레이 헤어 컬러 크림</div>
+      <div class="history-tags">
+        <span class="history-tag">염색 클레임</span>
+        <span class="history-tag">원료 15종</span>
+      </div>
+    </button>
+  </div>
+</section>
+
+<footer>
+  규제나침반은 중국 화장품 규제 확인을 돕는 1차 스크리닝 참고 도구이며, 법률·규제 자문을 대체하지 않습니다.
+</footer>
+
+<script>
+  const tagBox = document.getElementById('tag-box');
+  const ingredientInput = document.getElementById('ingredient-input');
+  let tags = [];
+
+  function renderTags(){
+    tagBox.querySelectorAll('.tag').forEach(el => el.remove());
+    tags.forEach((t, i) => {
+      const chip = document.createElement('span');
+      chip.className = 'tag';
+      chip.innerHTML = t + ' <button type="button" aria-label="삭제">×</button>';
+      chip.querySelector('button').onclick = () => { tags.splice(i,1); renderTags(); };
+      tagBox.insertBefore(chip, ingredientInput);
+    });
+  }
+
+  ingredientInput.addEventListener('keydown', (e) => {
+    if(e.key === 'Enter' && ingredientInput.value.trim()){
+      e.preventDefault();
+      ingredientInput.value.split(',').forEach(v=>{
+        const val = v.trim();
+        if(val) tags.push(val);
+      });
+      ingredientInput.value = '';
+      renderTags();
+    }
+  });
+
+  function loadHistory(category, type, ingredients, claim){
+    document.getElementById('category').value = category;
+    document.querySelectorAll('input[name=type]').forEach(r => r.checked = (r.value === type));
+    tags = [...ingredients];
+    renderTags();
+    document.getElementById('claim').value = claim;
+
+    let name = '';
+    const ev = window.event;
+    const card = ev && ev.currentTarget;
+    if(card){
+      const titleEl = card.querySelector('.history-title');
+      if(titleEl) name = titleEl.textContent.trim();
+    }
+    document.getElementById('product-name').value = name;
+
+    document.getElementById('result').style.display = 'none';
+    document.getElementById('screening-form').scrollIntoView({behavior:'smooth'});
+    const status = document.getElementById('form-status');
+    status.textContent = '이전 조건을 불러왔어요.';
+    status.classList.add('show');
+    setTimeout(()=>{status.classList.remove('show'); status.textContent='';}, 2500);
+  }
+
+  /* ---------- 1차 스크리닝 규칙 엔진 ---------- */
+  const INGREDIENT_DB = {
+    '알파-알부틴': {signal:'red', reason:'미백 기능성 성분으로 특수화장품(注册) 등록 대상에 해당할 가능성이 높아요. 함량 상한 확인이 필요해요.', reg:'미백 기능 원료 (함량 상한 존재)', issue:'등록 절차 소요기간을 사전에 확인'},
+    '트라넥사믹애씨드': {signal:'red', reason:'미백 기능성 성분으로 특수화장품(注册) 등록 대상에 해당할 가능성이 높아요. 함량 상한 확인이 필요해요.', reg:'미백 기능 원료 (함량 상한 존재)', issue:'등록 절차 소요기간을 사전에 확인'},
+    '나이아신아마이드': {signal:'amber', reason:'미백 기능으로도 쓰일 수 있는 성분이라, 클레임에 "미백"이 없어도 처방 목적에 따라 특수화장품(注册) 대상 여부를 다시 짚어야 해요.', reg:'기사용원료 (용도별 재확인 필요)', issue:'처방 목적(농도·조합) 확인'},
+    '살리실릭애씨드': {signal:'amber', reason:'여드름·트러블 케어 목적으로 사용 시 효능평가 자료가 요구될 수 있어요. 영유아 대상은 사용 제한이 있어요.', reg:'기사용원료 (효능평가 대상 가능성)', issue:'영유아용 여부 별도 확인'},
+    '에칠헥실메톡시신나메이트': {signal:'amber', reason:'자외선차단 목적 원료로 함량 상한이 있어요. 특수화장품(防晒) 등록 대상이에요.', reg:'자외선차단 원료 (함량 상한 존재)', issue:'-'},
+    '징크옥사이드': {signal:'amber', reason:'자외선차단 목적 원료예요. 나노 입자 여부에 따라 표기 의무가 달라질 수 있어요.', reg:'자외선차단 원료 (나노 여부 확인)', issue:'-'},
+    '티타늄디옥사이드': {signal:'amber', reason:'자외선차단·착색 겸용 원료예요. 나노 입자 여부에 따라 표기 의무가 달라질 수 있어요.', reg:'자외선차단/착색 겸용 원료', issue:'-'},
+    '트라이클로산': {signal:'red', reason:'항균/방부 목적 원료지만 국가별로 사용 제한이 강화되는 추세예요. 함량 상한을 엄격히 확인해야 해요.', reg:'제한 성분 (함량 상한 존재)', issue:'대체 방부 시스템 검토 권장'},
+    '파라페닐렌다이아민(PPD)': {signal:'red', reason:'산화염모제의 대표적 알러젠 성분이에요. 함량 상한과 경고 문구 의무 표기 대상이에요.', reg:'염모제 원료 (알러젠, 함량 상한 존재)', issue:'패치테스트 권고 문구 표기 필요'},
+    '레조시놀': {signal:'red', reason:'산화염모제 보조 성분으로 알러젠 이력이 있어 함량 상한 확인이 필요해요.', reg:'염모제 원료 (알러젠, 함량 상한 존재)', issue:'-'},
+    '암모니아': {signal:'amber', reason:'강알칼리성 염모 보조 성분으로 자극성 경고 문구 표기 대상이에요.', reg:'염모제 보조 원료', issue:'-'},
+    '바쿠치올': {signal:'red', reason:'과거 신원료로 등록됐다가 등록이 취소된 이력이 있는 성분이에요. "이미 등록됐던 원료니까 안전하다"는 착각에 주의하세요.', reg:'신원료 (등록 취소 이력)', issue:'재등록 여부 미확인 상태로 유통 중일 가능성'},
+    '니코틴아마이드모노뉴클레오타이드(NMN)': {signal:'red', reason:'등록 취소 이력이 있는 성분이에요. 트렌디한 안티에이징 원료일수록 최신 등록 상태 재확인이 필수예요.', reg:'신원료 (등록 상태 재확인 필요)', issue:'신원료 등록·철회 활동이 활발해 상시 확인 필요'},
+    '콜라겐': {signal:'amber', reason:'기사용원료 목록에서 총칭성 원료로 분류돼요. "콜라겐"이라고만 쓰면 안 되고 구체적 원료명(예: 가수분해콜라겐)이 필요해요.', reg:'기사용원료 (총칭명 사용)', issue:'제조사 증명서·구매 증빙 확보 필요'},
+    '알루미늄클로로하이드레이트': {signal:'amber', reason:'탈취/제한땀 목적 원료로, 데오드란트 카테고리 자체가 규제 변경이 잦은 영역이에요.', reg:'탈취 기능 원료', issue:'카테고리 유효성 체크 함께 확인'},
+    '클림바졸': {signal:'amber', reason:'비듬 방지용 항진균 성분으로 함량 상한이 있어요.', reg:'기사용원료 (함량 상한 존재)', issue:'-'},
+    '아데노신': {signal:'amber', reason:'항노화(안티에이징) 효능 클레임과 결합될 경우 효능평가 자료가 요구될 수 있어요.', reg:'기사용원료 (효능평가 대상 가능성)', issue:'-'}
+  };
+  const EXTRACT_PART_KEYWORDS = ['꽃','잎','줄기','뿌리','씨','열매','껍질'];
+
+  function classifyIngredient(name){
+    const known = INGREDIENT_DB[name];
+    if(known) return Object.assign({}, known);
+    if(name.indexOf('추출물') !== -1){
+      const hasPart = EXTRACT_PART_KEYWORDS.some(function(k){ return name.indexOf(k) !== -1; });
+      if(!hasPart){
+        return {signal:'amber', reason:'추출 부위(꽃/잎/줄기 등)를 명시하지 않았어요. 규정상 구체 부위를 표기해야 원료 사용 근거가 명확해져요.', reg:'기사용원료 (표기 불완전 가능성)', issue:'부위 표기 후 재확인 권장'};
+      }
+    }
+    return {signal:'green', reason:'기사용원료로 널리 사용되며 특별한 제한 이력이 확인되지 않았어요.', reg:'기사용원료', issue:'-'};
+  }
+
+  const BANNED_2026_KEYWORDS = ['육모','탈모','제모','기모','유방','가슴','체형','바디쉐이핑','탈취'];
+  const WHITENING_KEYWORDS = ['미백','브라이트닝','화이트닝','잡티'];
+  const SUNSCREEN_KEYWORDS = ['자외선','spf','선번','자차'];
+  const HAIRDYE_KEYWORDS = ['염색','새치'];
+  const ACNE_KEYWORDS = ['여드름','트러블','뾰루지'];
+
+  function buildValidityChecks(claim, category, type){
+    const c = (claim || '').toLowerCase();
+    const checks = [];
+    const bannedHit = BANNED_2026_KEYWORDS.some(function(k){ return c.indexOf(k) !== -1; });
+    if(bannedHit){
+      checks.push({tone:'warn', icon:'⚠️', title:'2026.1.1 생산·판매 금지 카테고리 해당 가능성', body:'클레임에 포함된 표현이 <strong>2026년 1월 1일부터 생산·판매가 금지되는 카테고리(육모·제모·유방미용·체형관리·탈취)</strong>와 관련 있어 보여요. 사업 지속 여부를 최우선으로 재검토하세요.'});
+    } else {
+      checks.push({tone:'ok', icon:'✅', title:'2026.1.1 생산·판매 금지 카테고리 아님', body:'이 제품은 육모·제모·유방미용·체형관리·탈취 등 <strong>2026년 1월 1일부터 생산·판매가 금지되는 카테고리에 해당하지 않아요.</strong> 이 항목은 통과예요.'});
+    }
+    const whiteningHit = WHITENING_KEYWORDS.some(function(k){ return c.indexOf(k) !== -1; });
+    const sunscreenHit = SUNSCREEN_KEYWORDS.some(function(k){ return c.indexOf(k) !== -1; }) || category === '자외선차단';
+    const hairdyeHit = HAIRDYE_KEYWORDS.some(function(k){ return c.indexOf(k) !== -1; });
+    const acneHit = ACNE_KEYWORDS.some(function(k){ return c.indexOf(k) !== -1; });
+
+    if(whiteningHit){
+      checks.push({tone:'warn', icon:'⚠️', title:'클레임 표현 주의 — 미백/화이트닝', body:'미백류 클레임은 <strong>특수화장품(注册) 등록 대상</strong>일 가능성이 높아요. 효능 평가 자료와 원료 함량 상한을 함께 확인하세요.'});
+    }
+    if(sunscreenHit){
+      checks.push({tone:'warn', icon:'⚠️', title:'클레임 표현 주의 — 자외선차단', body:'자외선차단 클레임은 <strong>특수화장품(防晒) 등록 대상</strong>이에요. SPF/PA 표기 근거 자료를 준비하세요.'});
+    }
+    if(hairdyeHit){
+      checks.push({tone:'warn', icon:'⚠️', title:'클레임 표현 주의 — 염색/새치', body:'염색 관련 클레임은 <strong>특수화장품(染发) 등록 대상</strong>이에요. 알러젠 성분 경고 문구 표기 여부를 확인하세요.'});
+    }
+    if(acneHit){
+      checks.push({tone:'warn', icon:'⚠️', title:'클레임 표현 주의 — 여드름/트러블', body:'여드름·트러블 케어 클레임은 <strong>효능 평가 자료 제출이 요구될 수 있어요.</strong> 근거 자료를 준비하세요.'});
+    }
+
+    const needsSpecial = bannedHit || whiteningHit || sunscreenHit || hairdyeHit;
+    let typeTitle, typeBody, typeTone;
+    if(type === '특수'){
+      typeTitle = '제품유형 판정 — 특수화장품(注册) 선택됨';
+      typeBody = '입력하신 유형(특수화장품)과 클레임이 대체로 일치해요. 등록(注册) 절차 소요기간을 일정에 반영하세요.';
+      typeTone = 'ok';
+    } else if(needsSpecial){
+      typeTitle = '제품유형 판정 — 특수화장품(注册) 전환 가능성';
+      typeBody = '클레임/카테고리로 볼 때 <strong>특수화장품(注册) 대상일 가능성이 높아요.</strong> 입력하신 유형과 다를 수 있으니 재확인하세요.';
+      typeTone = 'warn';
+    } else if(type === '일반'){
+      typeTitle = '제품유형 판정 — 일반화장품(备案) 선택됨';
+      typeBody = '입력하신 유형(일반화장품)과 클레임이 대체로 일치해요. 신고(备案) 절차로 진행 가능성이 높아요.';
+      typeTone = 'ok';
+    } else {
+      typeTitle = '제품유형 판정 — 일반화장품(备案) 추정, 확인 필요';
+      typeBody = '클레임만 보면 <strong>일반화장품(备案) 대상일 가능성이 높아요.</strong> 다만 원료 처방 목적에 따라 분류가 달라질 수 있어 최종 확정 전 재확인이 필요해요.';
+      typeTone = 'check';
+    }
+    checks.push({tone:typeTone, icon: typeTone==='ok' ? '✅' : (typeTone==='warn' ? '⚠️' : '🔍'), title:typeTitle, body:typeBody});
+    return checks;
+  }
+
+  function buildChecklist(classified, claim){
+    const items = [];
+    classified.filter(function(c){ return c.signal==='red'; }).forEach(function(c){
+      items.push('<span class="rtag">'+c.name+'</span>최신 등록/사용 상태를 NMPA 공식 채널에서 재확인');
+    });
+    classified.filter(function(c){ return c.signal==='amber'; }).forEach(function(c){
+      const issue = (c.issue && c.issue !== '-') ? c.issue : '표기·근거 자료 확인';
+      items.push('<span class="rtag">'+c.name+'</span>'+issue);
+    });
+    if(claim){
+      items.push('<span class="rtag">클레임</span>"'+claim+'" 표현의 효능 평가 근거자료 준비');
+    }
+    items.push('<span class="rtag">절차</span>제품유형(일반/특수) 최종 확인 후 등록·신고 절차 선택');
+    return items;
+  }
+
+  function buildReferences(){
+    return [
+      {title:'NMPA 공고·통지 (공식)', url:'https://www.nmpa.gov.cn/xxgk/ggtg/index.html', meta:'최신 공고·통지 원문을 실시간으로 확인할 수 있는 NMPA 공식 채널이에요.'},
+      {title:'NMPA 화장품 감독관리 공고 (공식)', url:'https://www.nmpa.gov.cn/hzhp/hzhpjmtg/index.html', meta:'등록·신고, 원료 관리 관련 공식 공고 게시 페이지예요.'},
+      {title:'실시간 웹서치 연동 안내', url:'', meta:'실제 서비스에서는 이 자리에 원료·카테고리별 최신 뉴스/공고 검색 결과가 자동으로 표시될 예정이에요. (이 데모는 정적 화면이라 고정 링크만 제공해요)'}
+    ];
+  }
+
+  function signalLabel(s){
+    return s === 'red' ? '절차 확인 필수' : (s === 'amber' ? '확인 필요' : '사용 가능 가능성 높음');
+  }
+
+  function handleFileSelect(input){
+    const label = document.getElementById('plan-file-name');
+    label.textContent = (input.files && input.files.length) ? input.files[0].name : '선택된 파일 없음';
+  }
+
+  function toggleGreenRows(rowEl){
+    const table = rowEl.closest('table');
+    const hiddenRows = table.querySelectorAll('tr.green-hidden');
+    if(!hiddenRows.length) return;
+    const nowHidden = hiddenRows[0].style.display === 'none';
+    hiddenRows.forEach(function(r){ r.style.display = nowHidden ? 'table-row' : 'none'; });
+    const label = rowEl.querySelector('.toggle-label');
+    const count = label.getAttribute('data-count');
+    label.textContent = nowHidden
+      ? '🟢 기사용원료 '+count+'종 접기 ▲'
+      : '🟢 기사용원료 '+count+'종 더 보기 (사용 가능 가능성 높음) ▾';
+  }
+
+  function buildResultHTML(productName, category, type, target, claim, classified, redCount, amberCount, greenCount, needleAngle, badgeTone, animId){
+    const badgeCount = redCount + amberCount;
+    const needleColor = badgeTone === 'red' ? '#C1503F' : (badgeTone === 'amber' ? '#E0A83E' : '#4C9A6A');
+    const keyframeName = 'settleResult'+animId;
+    const overshoot = needleAngle + 55;
+    const midBack = needleAngle - 15;
+
+    function rowHTML(c, hidden){
+      const rowClass = (c.signal === 'red' ? 'risk-red' : (c.signal === 'amber' ? 'risk-amber' : '')) + (hidden ? ' green-hidden' : '');
+      const style = hidden ? ' style="display:none;"' : '';
+      return '<tr class="'+rowClass+'"'+style+'>'
+        + '<td class="ing-name">'+c.name+'</td>'
+        + '<td><span class="signal '+c.signal+'"><span class="dot"></span>'+signalLabel(c.signal)+'</span></td>'
+        + '<td>'+c.reason+'</td>'
+        + '<td class="reg-tag">'+c.reg+'</td>'
+        + '<td class="issue-text">'+c.issue+'</td>'
+        + '</tr>';
+    }
+    const flagged = classified.filter(function(c){ return c.signal !== 'green'; });
+    const greens = classified.filter(function(c){ return c.signal === 'green'; });
+    const flaggedRowsHTML = flagged.map(function(c){ return rowHTML(c, false); }).join('');
+    const greenRowsHTML = greens.map(function(c){ return rowHTML(c, true); }).join('');
+    const toggleRowHTML = greens.length ? (
+      '<tr class="toggle-row" onclick="toggleGreenRows(this)">'
+      + '<td colspan="5"><span class="toggle-label" data-count="'+greens.length+'">🟢 기사용원료 '+greens.length+'종 더 보기 (사용 가능 가능성 높음) ▾</span></td>'
+      + '</tr>'
+    ) : '';
+    const rows = flaggedRowsHTML + toggleRowHTML + greenRowsHTML;
+
+    const validity = buildValidityChecks(claim, category, type).map(function(v){
+      return '<div class="validity-card '+v.tone+'">'
+        + '<div class="validity-icon">'+v.icon+'</div>'
+        + '<div><div class="validity-title">'+v.title+'</div><div class="validity-body">'+v.body+'</div></div>'
+        + '</div>';
+    }).join('');
+
+    const checklist = buildChecklist(classified, claim).map(function(item, i){
+      return '<div class="check-item"><input type="checkbox" id="rc'+i+'"><label for="rc'+i+'">'+item+'</label></div>';
+    }).join('');
+
+    const refs = buildReferences().map(function(r){
+      return '<div class="ref-card">'
+        + '<div class="ref-title">'+(r.url ? '<a href="'+r.url+'" target="_blank" rel="noopener">'+r.title+'</a>' : r.title)+'</div>'
+        + '<div class="ref-meta">'+r.meta+'</div>'
+        + '</div>';
+    }).join('');
+
+    return ''
+      + '<style>@keyframes '+keyframeName+'{0%{transform:rotate(0deg);}55%{transform:rotate('+overshoot+'deg);}75%{transform:rotate('+midBack+'deg);}100%{transform:rotate('+needleAngle+'deg);}}</style>'
+      + '<div class="summary-card">'
+      +   '<div class="summary-left">'
+      +     '<svg class="summary-compass" viewBox="0 0 340 340" role="img" aria-label="종합 위험도">'
+      +       '<circle cx="170" cy="170" r="150" fill="none" stroke="rgba(243,239,228,0.10)" stroke-width="1"/>'
+      +       '<path d="M170 170 L170 22 A148 148 0 0 1 297 100 Z" fill="rgba(76,154,106,0.16)"/>'
+      +       '<path d="M170 170 L297 100 A148 148 0 0 1 297 240 Z" fill="rgba(224,168,62,0.18)"/>'
+      +       '<path d="M170 170 L297 240 A148 148 0 0 1 170 318 Z" fill="rgba(193,80,63,0.20)"/>'
+      +       '<circle cx="170" cy="170" r="150" fill="none" stroke="rgba(201,162,39,0.35)" stroke-width="1.5"/>'
+      +       '<text x="170" y="52" text-anchor="middle" style="font-size:11px; fill:var(--muted);">안전</text>'
+      +       '<text x="288" y="175" text-anchor="middle" style="font-size:11px; fill:var(--muted);">확인필요</text>'
+      +       '<text x="170" y="298" text-anchor="middle" style="font-size:11px; fill:var(--muted);">주의</text>'
+      +       '<g style="transform-origin:170px 170px; animation:'+keyframeName+' 1.7s cubic-bezier(.2,.9,.25,1) forwards;">'
+      +         '<polygon points="170,60 178,170 170,180 162,170" fill="'+needleColor+'"/>'
+      +         '<polygon points="170,280 178,170 170,160 162,170" fill="rgba(243,239,228,0.4)"/>'
+      +       '</g>'
+      +       '<circle cx="170" cy="170" r="10" fill="#0E1A2B" stroke="'+needleColor+'" stroke-width="2"/>'
+      +     '</svg>'
+      +     '<div class="risk-badge '+badgeTone+'"><span class="dot"></span>확인 필요 항목 '+badgeCount+'개</div>'
+      +   '</div>'
+      +   '<div class="summary-right">'
+      +     '<div class="product-name">'+productName+'</div>'
+      +     '<div class="summary-meta">'
+      +       '<span class="meta-chip">'+category+'</span>'
+      +       '<span class="meta-chip">'+(type==='미정' ? '미정 (확인 필요)' : (type==='특수' ? '특수화장품' : '일반화장품'))+'</span>'
+      +       '<span class="meta-chip">'+(target==='영유아' ? '영유아용' : '성인용')+'</span>'
+      +       '<span class="meta-chip">원료 '+classified.length+'종</span>'
+      +       (claim ? '<span class="meta-chip">클레임: '+claim+'</span>' : '')
+      +     '</div>'
+      +     '<div class="summary-stats">'
+      +       '<div class="stat-box"><div class="stat-num red">'+redCount+'</div><div class="stat-label">🔴 절차 확인 필수</div></div>'
+      +       '<div class="stat-box"><div class="stat-num amber">'+amberCount+'</div><div class="stat-label">🟡 확인 필요</div></div>'
+      +       '<div class="stat-box"><div class="stat-num green">'+greenCount+'</div><div class="stat-label">🟢 사용 가능 가능성 높음</div></div>'
+      +     '</div>'
+      +   '</div>'
+      + '</div>'
+
+      + '<div class="result-section">'
+      +   '<div class="result-section-head"><div class="section-eyebrow">Section 1</div><h3>원료별 상세 분석</h3></div>'
+      +   '<div class="table-wrap"><table><thead><tr><th>원료명</th><th>신호등</th><th>사유</th><th>허가/등록 구분</th><th>최근 이슈</th></tr></thead><tbody>'+rows+'</tbody></table></div>'
+      + '</div>'
+
+      + '<div class="result-section">'
+      +   '<div class="result-section-head"><div class="section-eyebrow">Section 2</div><h3>카테고리 유효성 체크</h3></div>'
+      +   '<div class="validity-list">'+validity+'</div>'
+      + '</div>'
+
+      + '<div class="result-section">'
+      +   '<div class="result-section-head"><div class="section-eyebrow">Section 3</div><h3>확인 필요 체크리스트</h3></div>'
+      +   '<div class="checklist">'+checklist+'</div>'
+      + '</div>'
+
+      + '<div class="result-section">'
+      +   '<div class="result-section-head"><div class="section-eyebrow">Section 4</div><h3>참고 자료</h3></div>'
+      +   '<p class="ref-note">아래는 실제 검증 가능한 공식 출처예요. 원료·클레임별 실시간 뉴스 검색 연동은 다음 단계에서 추가될 예정이에요.</p>'
+      +   '<div class="ref-list">'+refs+'</div>'
+      + '</div>';
+  }
+
+  let resultRenderSeq = 0;
+
+  function renderResult(){
+    const category = document.getElementById('category').value || '카테고리 미입력';
+    const typeInput = document.querySelector('input[name=type]:checked');
+    const type = typeInput ? typeInput.value : '미정';
+    const targetInput = document.querySelector('input[name=target]:checked');
+    const target = targetInput ? targetInput.value : '성인';
+    const claim = document.getElementById('claim').value.trim();
+    const productNameInput = document.getElementById('product-name').value.trim();
+    const productName = productNameInput || (category + ' 제품');
+    const status = document.getElementById('form-status');
+
+    if(tags.length === 0){
+      status.textContent = '원료를 1개 이상 입력해주세요.';
+      status.classList.add('show');
+      setTimeout(function(){status.classList.remove('show'); status.textContent='';}, 2500);
+      return;
+    }
+
+    const classified = tags.map(function(name){ return Object.assign({name: name}, classifyIngredient(name)); });
+    const order = {red:0, amber:1, green:2};
+    classified.sort(function(a,b){ return order[a.signal]-order[b.signal]; });
+
+    const redCount = classified.filter(function(c){ return c.signal==='red'; }).length;
+    const amberCount = classified.filter(function(c){ return c.signal==='amber'; }).length;
+    const greenCount = classified.filter(function(c){ return c.signal==='green'; }).length;
+    const badgeTone = redCount > 0 ? 'red' : (amberCount > 0 ? 'amber' : 'green');
+    const needleAngle = redCount > 0 ? 230 : (amberCount > 0 ? 120 : 0);
+    resultRenderSeq++;
+
+    document.getElementById('result-body').innerHTML = buildResultHTML(productName, category, type, target, claim, classified, redCount, amberCount, greenCount, needleAngle, badgeTone, resultRenderSeq);
+
+    const resultSection = document.getElementById('result');
+    resultSection.style.display = 'block';
+    resultSection.scrollIntoView({behavior:'smooth'});
+
+    status.textContent = '스크리닝 결과가 준비됐어요.';
+    status.classList.add('show');
+    setTimeout(function(){status.classList.remove('show'); status.textContent='';}, 2500);
+  }
+
+  function handleSubmit(e){
+    e.preventDefault();
+    renderResult();
+    return false;
+  }
+</script>
+
+</body>
+</html>

@@ -1,0 +1,23 @@
+{
+  "permissions": {
+    "allow": [
+      "Read(//c/practice/**)",
+      "Bash(find /c/practice -iname \"*.jpg\" -o -iname \"*.jpeg\" -o -iname \"*.png\" 2>/dev/null; echo \"---cosmax full tree---\"; find /c/private/cosmax -maxdepth 3 2>/dev/null)",
+      "Bash(python test_build.py)",
+      "Bash(mkdir -p /c/private/cosmax/assets)",
+      "Bash(cp \"/c/practice/규제나침반_최종 \\(1\\).html\" \"/c/private/cosmax/assets/규제나침반_최종.html\")",
+      "Bash(cp \"/c/practice/3153f43349e726dcbb1326232ad5b6cd.jpg\" \"/c/private/cosmax/assets/cream_banner.jpg\")",
+      "Bash(python -m py_compile \"/c/private/cosmax/app.py\")",
+      "Bash(python -c \"import streamlit; print\\(streamlit.__version__\\)\")",
+      "Bash(python -c \"import pandas; print\\(pandas.__version__\\)\")",
+      "Bash(pkill -f \"streamlit run\")",
+      "Bash(git -C /c/private/cosmax status --short)",
+      "Bash(powershell -NoProfile -Command 'Get-Process | Where-Object { $_.Path -like '\\\\''*cosmax*'\\\\'' } | Select-Object Id,ProcessName,Path')",
+      "Bash(powershell -NoProfile -Command \"Stop-Process -Id 15392,30980,32228,43152 -Force -ErrorAction SilentlyContinue\")",
+      "Bash(git -C /c/private/cosmax status)",
+      "Bash(pkill -f \"venv2\")",
+      "Bash(git -C /c/private/cosmax log --oneline -3)",
+      "Bash(git -C /c/private/cosmax remote -v)"
+    ]
+  }
+}
