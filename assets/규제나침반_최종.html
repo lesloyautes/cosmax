@@ -285,6 +285,16 @@
     font-family:'Pretendard',sans-serif;
     width:100%;
   }
+  select{
+    appearance:none;
+    -webkit-appearance:none;
+    -moz-appearance:none;
+    padding-right:44px;
+    background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%2396A3B8' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'/%3E%3C/svg%3E");
+    background-repeat:no-repeat;
+    background-position:right 18px center;
+    background-size:14px;
+  }
   select:focus, input[type=text]:focus{outline:2px solid var(--gold); outline-offset:1px;}
   .radio-row{display:flex; gap:10px; flex-wrap:wrap;}
   .radio-chip{
@@ -1143,10 +1153,9 @@
     const needleAngle = redCount > 0 ? 230 : (amberCount > 0 ? 120 : 0);
     resultRenderSeq++;
 
-    document.getElementById('result-body').innerHTML = buildResultHTML(productName, category, type, target, claim, classified, redCount, amberCount, greenCount, needleAngle, badgeTone, resultRenderSeq);
-
     const resultSection = document.getElementById('result');
     resultSection.style.display = 'block';
+    document.getElementById('result-body').innerHTML = buildResultHTML(productName, category, type, target, claim, classified, redCount, amberCount, greenCount, needleAngle, badgeTone, resultRenderSeq);
     resultSection.scrollIntoView({behavior:'smooth'});
 
     status.textContent = '스크리닝 결과가 준비됐어요.';
