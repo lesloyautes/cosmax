@@ -1,4 +1,5 @@
 import base64
+import html
 import json
 import re
 from pathlib import Path
@@ -166,10 +167,14 @@ def build_history_cards_html() -> str:
             overall_signal(ingredients)
         ]
         date_label = HISTORY_DATE_LABELS[idx % len(HISTORY_DATE_LABELS)]
-        ingredients_js = json.dumps(ingredients, ensure_ascii=False)
-        claim_js = json.dumps(str(row["효능클레임"]), ensure_ascii=False)
+        # data-* 속성에 담을 값은 HTML 이스케이프해서 넣는다 — onclick 속성 안에 원료 배열(JSON)을
+        # 직접 넣으면 배열 안의 큰따옴표가 onclick="..." 속성값의 닫는 따옴표와 충돌해 깨진다.
+        ingredients_attr = html.escape(json.dumps(ingredients, ensure_ascii=False), quote=True)
+        claim_attr = html.escape(str(row["효능클레임"]), quote=True)
+        category_attr = html.escape(category, quote=True)
+        type_attr = html.escape(ptype, quote=True)
         cards.append(
-            f"""    <button class="history-card" onclick="loadHistory('{category}','{ptype}',{ingredients_js},{claim_js})">
+            f"""    <button class="history-card" data-category="{category_attr}" data-type="{type_attr}" data-ingredients="{ingredients_attr}" data-claim="{claim_attr}" onclick="loadHistoryFromCard(this)">
       <div class="history-top">
         <span class="history-cat">{category}</span>
         <span class="history-date">{date_label}</span>
@@ -208,22 +213,22 @@ NEW_CLASSIFY_FN = """function classifyIngredient(name){
   }"""
 
 def build_page_html() -> str:
-    html = MOCKUP_PATH.read_text(encoding="utf-8")
+    page = MOCKUP_PATH.read_text(encoding="utf-8")
 
     # 1) 원료 판정 DB를 Python 쪽 데이터로 교체
-    html, n = re.subn(
+    page, n = re.subn(
         r"const INGREDIENT_DB = \{.*?\n  \};\n(?=  const EXTRACT_PART_KEYWORDS)",
         lambda m: f"const INGREDIENT_DB = {build_ingredient_db_js()};\n",
-        html,
+        page,
         flags=re.S,
     )
     assert n == 1, "INGREDIENT_DB 치환 실패 — 목업 파일 구조가 바뀌었는지 확인하세요."
 
     # 2) exact-match 대신 Python과 동일한 substring 매칭 규칙 사용
-    html, n = re.subn(
+    page, n = re.subn(
         r"function classifyIngredient\(name\)\{.*?\n  \}\n(?=\n  const BANNED_2026_KEYWORDS)",
         lambda m: NEW_CLASSIFY_FN + "\n",
-        html,
+        page,
         flags=re.S,
     )
     assert n == 1, "classifyIngredient 치환 실패"
@@ -246,35 +251,58 @@ def build_page_html() -> str:
         f"  const SENSITIVE_CLAIM_KEYWORDS = {json.dumps(SENSITIVE_CLAIM_KEYWORDS, ensure_ascii=False)};\n"
         f"  const SENSITIVE_CHECK_INFO = {sensitive_check_json};"
     )
-    html, n = re.subn(r"const BANNED_2026_KEYWORDS = \[.*?\];", replacement, html)
+    page, n = re.subn(r"const BANNED_2026_KEYWORDS = \[.*?\];", replacement, page)
     assert n == 1, "BANNED_2026_KEYWORDS 치환 실패"
 
     # 4) 민감/저자극 체크를 카테고리 유효성 체크 목록에 반영
     old_marker = "    const whiteningHit = WHITENING_KEYWORDS.some"
-    assert html.count(old_marker) == 1, "whiteningHit 마커를 찾을 수 없음"
-    html = html.replace(
+    assert page.count(old_marker) == 1, "whiteningHit 마커를 찾을 수 없음"
+    page = page.replace(
         old_marker,
         "    const sensitiveHit = SENSITIVE_CLAIM_KEYWORDS.some(function(k){ return c.indexOf(k) !== -1; });\n"
         "    if(sensitiveHit){ checks.push(SENSITIVE_CHECK_INFO); }\n" + old_marker,
         1,
     )
 
-    # 5) 최근 스크리닝 이력을 sample_data.csv 기반으로 교체
-    html, n = re.subn(
+    # 5) loadHistory()를 data-* 속성 기반으로 호출하는 브릿지 함수 추가
+    #    (onclick 속성 안에 원료 JSON 배열을 직접 넣으면 큰따옴표가 onclick="..." 의
+    #    닫는 따옴표와 충돌해서 속성이 깨지기 때문에, data-* + JSON.parse 방식으로 우회)
+    old_loadhistory_tail = (
+        "    setTimeout(()=>{status.classList.remove('show'); status.textContent='';}, 2500);\n"
+        "  }\n\n"
+        "  /* ---------- 1차 스크리닝 규칙 엔진 ---------- */"
+    )
+    assert page.count(old_loadhistory_tail) == 1, "loadHistory 함수 종료 마커를 찾을 수 없음"
+    new_loadhistory_tail = (
+        "    setTimeout(()=>{status.classList.remove('show'); status.textContent='';}, 2500);\n"
+        "  }\n\n"
+        "  function loadHistoryFromCard(btn){\n"
+        "    const category = btn.dataset.category;\n"
+        "    const type = btn.dataset.type;\n"
+        "    const ingredients = JSON.parse(btn.dataset.ingredients);\n"
+        "    const claim = btn.dataset.claim;\n"
+        "    loadHistory(category, type, ingredients, claim);\n"
+        "  }\n\n"
+        "  /* ---------- 1차 스크리닝 규칙 엔진 ---------- */"
+    )
+    page = page.replace(old_loadhistory_tail, new_loadhistory_tail, 1)
+
+    # 6) 최근 스크리닝 이력을 sample_data.csv 기반으로 교체
+    page, n = re.subn(
         r'<div class="history-list">.*?</div>\n</section>',
         lambda m: f'<div class="history-list">\n{build_history_cards_html()}\n  </div>\n</section>',
-        html,
+        page,
         flags=re.S,
     )
     assert n == 1, "history-list 치환 실패"
 
-    # 6) 배너 이미지를 base64 데이터 URI로 임베드 (iframe srcdoc 안에서는 상대경로 파일을 못 읽음)
+    # 7) 배너 이미지를 base64 데이터 URI로 임베드 (iframe srcdoc 안에서는 상대경로 파일을 못 읽음)
     banner_uri = build_banner_data_uri()
     old_img = 'src="3153f43349e726dcbb1326232ad5b6cd.jpg"'
-    if banner_uri and old_img in html:
-        html = html.replace(old_img, f'src="{banner_uri}"', 1)
+    if banner_uri and old_img in page:
+        page = page.replace(old_img, f'src="{banner_uri}"', 1)
 
-    return html
+    return page
 
 
 # ----------------------------------------------------------------------
