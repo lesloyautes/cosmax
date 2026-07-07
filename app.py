@@ -47,6 +47,24 @@ CANCELLED_INGREDIENTS = {
     "에덱테인": "과거 등록이 취소된 이력이 있는 신원료예요.",
 }
 
+# 원료별 실제 기사·자료 링크 — 검증 가능한 출처만 등록 (조사로 확인 못한 원료는 비워둠)
+NMN_REFS = [
+    {
+        "title": "제11款！又一家企业的NMN完成化妆品新原料备案 — 中贸合规中心",
+        "url": "https://www.zmuni.com/zh-hans/news/di-11-kuan-you-yi-jia-qi-ye-de-nmn-wan-cheng-hua-zhuang-pin/",
+        "meta": "NMN 신원료 등록 현황을 추적한 중국 업계 자료예요. 여러 기업이 NMN을 신원료로 등록해 온 정황을 확인할 수 있어요.",
+    },
+    {
+        "title": "邦泰生物领跑美妆新阶段：完成2024年NMN化妆品新原料备案 — 中华网",
+        "url": "https://m.tech.china.com/tech/article/20240929/092024_1583451.html",
+        "meta": "2024.09 한 기업의 NMN 신원료 등록 소식이에요. 등록번호 형식 등을 확인하는 참고자료로 쓸 수 있어요.",
+    },
+]
+INGREDIENT_REFERENCE_LINKS = {
+    "니코틴아마이드모노뉴클레오타이드": NMN_REFS,
+    "nmn": NMN_REFS,
+}
+
 # 허가(注册) 대상 가능성이 높은 기능군 (RED) - 방부/자외선차단/착색/염모/미백
 LICENSE_REQUIRED = {
     "알파-알부틴": "미백 기능 원료 → 신원료라면 허가(注册) 대상, 기존 원료라도 특수화장품 분류 가능성 확인 필요",
@@ -174,13 +192,16 @@ def overall_signal(ingredients):
 def build_ingredient_db_js() -> str:
     db = {}
     for name, reason in CANCELLED_INGREDIENTS.items():
-        db[name] = {
+        entry = {
             "signal": "red",
             "reason": reason,
             "reg": "신원료 (등록 상태 재확인 필요)",
             "issue": "신원료 등록·철회 이력 — 최신 상태 확인 필수",
             "topic": "new_ingredient",
         }
+        if name in INGREDIENT_REFERENCE_LINKS:
+            entry["refs"] = INGREDIENT_REFERENCE_LINKS[name]
+        db[name] = entry
     for name, reason in LICENSE_REQUIRED.items():
         entry = {
             "signal": "red",
@@ -379,6 +400,12 @@ def build_page_html() -> str:
         "    if(HAIRDYE_KEYWORDS.some(function(k){ return cLower.indexOf(k) !== -1; })) topics.add('hairdye');\n"
         "    TOPIC_REFERENCE_ORDER.forEach(function(key){\n"
         "      if(topics.has(key) && TOPIC_REFERENCES[key]) refs.push(TOPIC_REFERENCES[key]);\n"
+        "    });\n"
+        "    const seenUrls = new Set(refs.map(function(r){ return r.url; }));\n"
+        "    (classified||[]).forEach(function(c){\n"
+        "      (c.refs||[]).forEach(function(r){\n"
+        "        if(!seenUrls.has(r.url)){ seenUrls.add(r.url); refs.push(r); }\n"
+        "      });\n"
         "    });\n"
         "    refs.push({title:'실시간 웹서치 연동 안내', url:'', meta:'실제 서비스에서는 이 자리에 원료·카테고리별 최신 뉴스/공고 검색 결과가 자동으로 표시될 예정이에요. (이 데모는 제품 특성에 맞는 공식 자료를 우선 매칭하고, 실시간 검색은 다음 단계에서 추가돼요)'});\n"
         "    return refs;\n"
